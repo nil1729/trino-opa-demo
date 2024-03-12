@@ -1,8 +1,12 @@
 package access
 
-import data.utils
+import data.access
 import future.keywords.if
 
 allow_resource if {
-	allow_default_access
+	access.allow_default_access
+}
+
+allow_resource if {
+	access.allow_for_resource
 }
