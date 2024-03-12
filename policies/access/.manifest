@@ -4,3 +4,4 @@ allow_resource.rego
 allow_resource_catalog.rego
 allow_resource_schema.rego
 allow_resource_table.rego
+allow_resource_column.rego

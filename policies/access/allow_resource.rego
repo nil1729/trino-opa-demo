@@ -15,3 +15,7 @@ allow_for_resource if {
 allow_for_resource if {
 	access.allow_for_resource_table
 }
+
+allow_for_resource if {
+	access.allow_for_resource_column
+}

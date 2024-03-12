@@ -20,7 +20,7 @@ filter_tables := "FilterTables"
 
 show_columns := "ShowColumns"
 
-select_from_columns := "SelectFromColumns"
-
 # column
 filter_columns := "FilterColumns"
+
+select_from_columns := "SelectFromColumns"

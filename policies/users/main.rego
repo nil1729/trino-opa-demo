@@ -27,3 +27,9 @@ user_table_access(user_id) := value if {
 	desired_obj.user == user_id
 	value := desired_obj.access
 }
+
+user_column_access(user_id) := value if {
+	desired_obj := db.column[_]
+	desired_obj.user == user_id
+	value := desired_obj.access
+}
