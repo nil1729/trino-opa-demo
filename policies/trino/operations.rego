@@ -13,9 +13,9 @@ show_schemas := "ShowSchemas"
 # schema
 filter_schemas := "FilterSchemas"
 
-# table
 show_tables := "ShowTables"
 
+# table
 filter_tables := "FilterTables"
 
 # columns

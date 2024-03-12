@@ -1,8 +1,8 @@
 ./access
 ./admin
+./context
 ./db
 ./trino
 ./users
-./context
 ./validations
 main.rego
