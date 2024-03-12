@@ -1,5 +1,6 @@
 package policies
 
+import data.access
 import data.admin
 import data.users
 import data.utils
@@ -17,4 +18,5 @@ allow if {
 allow if {
 	# print(input)
 	users.if_user_exists(utils.user_id)
+	access.allow_resource
 }
