@@ -7,7 +7,6 @@ const Group = RbacStore.client.define(
     groupId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      unique: true,
       primaryKey: true,
       field: "group_id",
       autoIncrement: true,

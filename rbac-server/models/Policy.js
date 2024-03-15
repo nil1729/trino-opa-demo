@@ -7,7 +7,6 @@ const Policy = RbacStore.client.define(
     policyId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      unique: true,
       primaryKey: true,
       field: "policy_id",
       autoIncrement: true,

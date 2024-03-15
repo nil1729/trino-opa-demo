@@ -6,20 +6,12 @@ const User = require("./User");
 const UserGroupMap = RbacStore.client.define(
   "UserGroupMap",
   {
-    userId: {
-      type: DataTypes.STRING,
-      references: {
-        model: User,
-        key: "email",
-      },
-      field: "user_id",
-    },
-    groupId: {
+    mappingId: {
       type: DataTypes.INTEGER,
-      references: {
-        model: Group,
-        key: "group_id",
-      },
+      primaryKey: true,
+      autoIncrement: true,
+      allowNull: false,
+      field: "mapping_id",
     },
   },
   {

@@ -13,6 +13,13 @@ const User = RbacStore.client.define(
       allowNull: false,
       unique: true,
     },
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      field: "user_id",
+      autoIncrement: true,
+    },
   },
   {
     tableName: "users",
