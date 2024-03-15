@@ -1,6 +1,5 @@
 const Group = require("../models/Group");
 const Policy = require("../models/Policy");
-const GroupPolicyMap = require("../models/GroupPolicyMap");
 const asyncHandler = require("../middleware/asyncHandler");
 
 // associate a policy with a group

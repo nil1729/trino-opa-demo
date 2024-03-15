@@ -9,6 +9,7 @@ exports.createPolicy = asyncHandler(async (req, res) => {
     schema: req.body.schema,
     table: req.body.table,
     columns: req.body.columns,
+    clusterId: req.body.clusterId,
   };
   const policy = await Policy.create(policyBody);
   res.status(201).json(policy);

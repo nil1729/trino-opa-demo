@@ -30,6 +30,11 @@ const Policy = RbacStore.client.define(
     columns: {
       type: DataTypes.ARRAY(DataTypes.STRING),
     },
+    clusterId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      field: "cluster_id",
+    },
   },
   {
     tableName: "policies",

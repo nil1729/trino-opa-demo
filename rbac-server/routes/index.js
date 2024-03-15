@@ -6,6 +6,7 @@ const userGroupController = require("../controller/userGroup");
 const policyController = require("../controller/policy");
 const groupPolicyController = require("../controller/groupPolicy");
 const userPolicyController = require("../controller/userPolicy");
+const opalController = require("../controller/opal");
 
 router.post("/users", userController.createUser);
 router.get("/users", userController.getUsers);
@@ -19,5 +20,6 @@ router.get("/policies", policyController.getPolicies);
 router.post("/group-policies", groupPolicyController.associatePolicyWithGroup);
 router.get("/group-policies/:groupId", groupPolicyController.getPoliciesByGroup);
 router.get("/user-policies/:userId", userPolicyController.getPoliciesByUser);
+router.get("/opal/:clusterId", opalController.getUserPolicies);
 
 module.exports = router;
