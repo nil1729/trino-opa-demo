@@ -37,19 +37,41 @@ services:
     networks:
       internal:
         ipv4_address: ${OPAL_SERVER_IP}
+    depends_on:
+      broadcast-channel:
+        condition: service_healthy
   
-  opal-client:
+  opal-client-1:
     image: permitio/opal-client:0.7.5
-    hostname: opal-client
-    container_name: opal-client
+    hostname: opal-client-1
+    container_name: opal-client-1
     environment:
       - OPAL_SERVER_URL=${OPAL_SERVER_URL}
-      - OPAL_DATA_TOPICS=${OPAL_DATA_TOPICS}
+      - OPAL_DATA_TOPICS=${OPAL_DATA_TOPICS_1}
     ports:
-      - "7000:7000"
-      - "8181:8181"
+      - "9001:7000"
+      - "9081:8181"
     networks:
       internal:
+    depends_on:
+      opal-server:
+        condition: service_started
+  
+  opal-client-2:
+    image: permitio/opal-client:0.7.5
+    hostname: opal-client-2
+    container_name: opal-client-2
+    environment:
+      - OPAL_SERVER_URL=${OPAL_SERVER_URL}
+      - OPAL_DATA_TOPICS=${OPAL_DATA_TOPICS_2}
+    ports:
+      - "9002:7000"
+      - "9082:8181"
+    networks:
+      internal:
+    depends_on:
+      opal-server:
+        condition: service_started
 
 networks:
   internal:
