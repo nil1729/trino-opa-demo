@@ -1,0 +1,67 @@
+version: '3.8'
+
+services:
+  broadcast-channel:
+    image: postgres:16
+    hostname: broadcast-channel
+    container_name: broadcast-channel
+    environment:
+      - POSTGRES_USER=${BROADCAST_CHANNEL_USER}
+      - POSTGRES_PASSWORD=${BROADCAST_CHANNEL_PASSWORD}
+      - POSTGRES_DB=${BROADCAST_CHANNEL_DATABASE}
+    volumes:
+      - "postgres-data:/var/lib/postgresql/data"
+    networks:
+      internal:
+        ipv4_address: ${BROADCAST_CHANNEL_IP}
+    healthcheck:
+      test: ['CMD', 'pg_isready', '-U', '${BROADCAST_CHANNEL_USER}']
+      interval: 10s
+      start_period: 30s
+      timeout: 10s
+      retries: 3
+
+  opal-server:
+    image: permitio/opal-server:0.7.5
+    hostname: opal-server
+    container_name: opal-server
+    environment:
+      - OPAL_BROADCAST_URI=${OPAL_BROADCAST_URI}
+      - UVICORN_NUM_WORKERS=${UVICORN_NUM_WORKERS}
+      - OPAL_POLICY_REPO_URL=${OPAL_POLICY_REPO_URL}
+      - OPAL_POLICY_REPO_MAIN_BRANCH=${OPAL_POLICY_REPO_MAIN_BRANCH}
+      - OPAL_POLICY_REPO_SSH_KEY=${OPAL_POLICY_REPO_SSH_KEY}
+      - OPAL_POLICY_REPO_POLLING_INTERVAL=${OPAL_POLICY_REPO_POLLING_INTERVAL}
+      - OPAL_DATA_CONFIG_SOURCES=${OPAL_DATA_CONFIG_SOURCES}
+    ports:
+      - "7002:7002"
+    networks:
+      internal:
+        ipv4_address: ${OPAL_SERVER_IP}
+    volumes:
+      - "opal-policy-repo-data:${OPAL_POLICY_REPO_CLONE_PATH}"
+  
+  opal-client:
+    image: permitio/opal-client:0.7.5
+    hostname: opal-client
+    container_name: opal-client
+    environment:
+      - OPAL_SERVER_URL=${OPAL_SERVER_URL}
+      - OPAL_DATA_TOPICS=${OPAL_DATA_TOPICS}
+    ports:
+      - "7000:7000"
+      - "8181:8181"
+    networks:
+      internal:
+        ipv4_address: ${OPAL_CLIENT_IP}
+
+networks:
+  internal:
+    ipam:
+      driver: default
+      config:
+        - subnet: ${INTERNAL_SUBNET}
+
+volumes:
+  postgres-data:
+  opal-policy-repo-data:

@@ -1,7 +1,0 @@
-main.rego
-allow_default_acces.rego
-allow_resource.rego
-allow_resource_catalog.rego
-allow_resource_schema.rego
-allow_resource_table.rego
-allow_resource_column.rego

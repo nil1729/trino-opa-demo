@@ -1,0 +1,20 @@
+{
+  "config": {
+    "entries": [
+      {
+        "url": "https://jsonplaceholder.typicode.com/users/1",
+        "topics": [
+          "opa-users"
+        ],
+        "dst_path": "/opa/users"
+      },
+      {
+        "url": "https://jsonplaceholder.typicode.com/posts/1",
+        "topics": [
+          "opa-posts"
+        ],
+        "dst_path": "/opa/posts"
+      }
+    ]
+  }
+}
