@@ -65,7 +65,7 @@ function createSchemaAccess(policies, user) {
     }
     schemaAccess.push({
       catalog: catalog,
-      access: Array.from(schemaSet),
+      schema: Array.from(schemaSet),
     });
   }
 
@@ -92,7 +92,7 @@ function createTableAccess(policies, user) {
       tableAccess.push({
         catalog: catalog,
         schema: schema,
-        access: Array.from(tableSet),
+        table: Array.from(tableSet),
       });
     }
   }
@@ -125,7 +125,7 @@ function createColumnAccess(policies, user) {
           catalog: catalog,
           schema: schema,
           table: table,
-          access: Array.from(columnSet),
+          column: Array.from(columnSet),
         });
       }
     }

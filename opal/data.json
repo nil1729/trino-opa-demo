@@ -2,18 +2,18 @@
   "config": {
     "entries": [
       {
-        "url": "https://jsonplaceholder.typicode.com/users/1",
+        "url": "http://172.16.0.153:5050/api/v1/opal/1",
         "topics": [
-          "opa-users"
+          "trino-1"
         ],
-        "dst_path": "/opa/users"
+        "dst_path": "/external"
       },
       {
-        "url": "https://jsonplaceholder.typicode.com/posts/1",
+        "url": "http://172.16.0.153:5050/api/v1/opal/2",
         "topics": [
-          "opa-posts"
+          "trino-2"
         ],
-        "dst_path": "/opa/posts"
+        "dst_path": "/external"
       }
     ]
   }

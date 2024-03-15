@@ -1,6 +1,47 @@
-version: '3.8'
+version: "3.8"
 
 services:
+  rbac-db:
+    image: postgres:16
+    hostname: rbac-db
+    container_name: rbac-db
+    environment:
+      - POSTGRES_USER=${RBAC_DB_USER}
+      - POSTGRES_PASSWORD=${RBAC_DB_PASSWORD}
+      - POSTGRES_DB=${RBAC_DB_DATABASE}
+    volumes:
+      - "rbac-db-data:/var/lib/postgresql/data"
+    networks:
+      internal:
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "${RBAC_DB_USER}"]
+      interval: 10s
+      start_period: 15s
+      timeout: 10s
+      retries: 3
+    # network_mode: "host"
+
+  rbac-backend:
+    build:
+      context: "${PWD}/rbac-server"
+      dockerfile: Dockerfile
+      args:
+        PORT: ${RBAC_PORT}
+    hostname: rbac-backend
+    container_name: rbac-backend
+    networks:
+      internal:
+        ipv4_address: ${RBAC_BACKEND_IP}
+    depends_on:
+      rbac-db:
+        condition: service_healthy
+    environment:
+      - RBAC_STORE_USER=${RBAC_DB_USER}
+      - RBAC_STORE_PASSWORD=${RBAC_DB_PASSWORD}
+      - RBAC_STORE_HOST=rbac-db
+      - RBAC_STORE_PORT=5432
+      - RBAC_STORE_DB=${RBAC_DB_DATABASE}
+
   broadcast-channel:
     image: postgres:16
     hostname: broadcast-channel
@@ -10,13 +51,13 @@ services:
       - POSTGRES_PASSWORD=${BROADCAST_CHANNEL_PASSWORD}
       - POSTGRES_DB=${BROADCAST_CHANNEL_DATABASE}
     volumes:
-      - "postgres-data:/var/lib/postgresql/data"
+      - "broadcast-channel-data:/var/lib/postgresql/data"
     networks:
       internal:
     healthcheck:
-      test: ['CMD', 'pg_isready', '-U', '${BROADCAST_CHANNEL_USER}']
+      test: ["CMD", "pg_isready", "-U", "${BROADCAST_CHANNEL_USER}"]
       interval: 10s
-      start_period: 30s
+      start_period: 15s
       timeout: 10s
       retries: 3
 
@@ -40,7 +81,7 @@ services:
     depends_on:
       broadcast-channel:
         condition: service_healthy
-  
+
   opal-client-1:
     image: permitio/opal-client:0.7.5
     hostname: opal-client-1
@@ -53,10 +94,11 @@ services:
       - "9081:8181"
     networks:
       internal:
+      trino:
     depends_on:
       opal-server:
         condition: service_started
-  
+
   opal-client-2:
     image: permitio/opal-client:0.7.5
     hostname: opal-client-2
@@ -69,9 +111,32 @@ services:
       - "9082:8181"
     networks:
       internal:
+      trino:
     depends_on:
       opal-server:
         condition: service_started
+
+  trino-1:
+    image: trinodb/trino:440
+    hostname: trino-1
+    container_name: trino-1
+    ports:
+      - "8081:8080"
+    networks:
+      trino:
+    volumes:
+      - "${PWD}/trino/opa-1.properties:/etc/trino/access-control.properties"
+
+  trino-2:
+    image: trinodb/trino:440
+    hostname: trino-2
+    container_name: trino-2
+    ports:
+      - "8082:8080"
+    networks:
+      trino:
+    volumes:
+      - "${PWD}/trino/opa-2.properties:/etc/trino/access-control.properties"
 
 networks:
   internal:
@@ -79,6 +144,8 @@ networks:
       driver: default
       config:
         - subnet: ${INTERNAL_SUBNET}
+  trino:
 
 volumes:
-  postgres-data:
+  broadcast-channel-data:
+  rbac-db-data:
