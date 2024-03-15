@@ -27,3 +27,17 @@ exports.getGroupsByUser = asyncHandler(async (req, res) => {
   }
   res.status(200).json(user);
 });
+
+// remove a user from a group
+exports.removeUserFromGroup = asyncHandler(async (req, res) => {
+  const user = await User.findByPk(req.body.userId);
+  if (!user) {
+    throw new Error("user not found");
+  }
+  const group = await Group.findByPk(req.body.groupId);
+  if (!group) {
+    throw new Error("group not found");
+  }
+  user.removeGroup(group);
+  res.status(200).json({ user, group });
+});
