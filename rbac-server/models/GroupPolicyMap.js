@@ -6,21 +6,12 @@ const Policy = require("./Policy");
 const GroupPolicyMap = RbacStore.client.define(
   "GroupPolicyMap",
   {
-    groupId: {
+    mappingId: {
       type: DataTypes.INTEGER,
-      references: {
-        model: Group,
-        key: "group_id",
-      },
-      field: "group_id",
-    },
-    policyId: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: Policy,
-        key: "policy_id",
-      },
-      field: "policy_id",
+      primaryKey: true,
+      autoIncrement: true,
+      allowNull: false,
+      field: "mapping_id",
     },
   },
   {
