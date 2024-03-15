@@ -13,7 +13,6 @@ services:
       - "postgres-data:/var/lib/postgresql/data"
     networks:
       internal:
-        ipv4_address: ${BROADCAST_CHANNEL_IP}
     healthcheck:
       test: ['CMD', 'pg_isready', '-U', '${BROADCAST_CHANNEL_USER}']
       interval: 10s
@@ -51,7 +50,6 @@ services:
       - "8181:8181"
     networks:
       internal:
-        ipv4_address: ${OPAL_CLIENT_IP}
 
 networks:
   internal:
