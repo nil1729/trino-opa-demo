@@ -38,8 +38,6 @@ services:
     networks:
       internal:
         ipv4_address: ${OPAL_SERVER_IP}
-    volumes:
-      - "opal-policy-repo-data:${OPAL_POLICY_REPO_CLONE_PATH}"
   
   opal-client:
     image: permitio/opal-client:0.7.5
@@ -64,4 +62,3 @@ networks:
 
 volumes:
   postgres-data:
-  opal-policy-repo-data:
