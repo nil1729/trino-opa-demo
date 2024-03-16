@@ -35,6 +35,8 @@ services:
     depends_on:
       rbac-db:
         condition: service_healthy
+    ports:
+      - "5050:${RBAC_PORT}"
     environment:
       - RBAC_STORE_USER=${RBAC_DB_USER}
       - RBAC_STORE_PASSWORD=${RBAC_DB_PASSWORD}
