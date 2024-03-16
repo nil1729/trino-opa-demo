@@ -19,7 +19,7 @@ exports.associatePolicyWithGroup = asyncHandler(async (req, res) => {
 // get all policies associated with a group
 exports.getPoliciesByGroup = asyncHandler(async (req, res) => {
   const group = await Group.findByPk(req.params.groupId, {
-    include: [{ model: Policy, attributes: ["policyId", "catalog", "schema", "table", "columns"] }],
+    include: [{ model: Policy, attributes: ["policyId", "catalog", "schema", "table", "columns", "clusterId"] }],
   });
   if (!group) {
     throw new Error("group not found");
