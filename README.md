@@ -106,6 +106,7 @@ trino --server localhost:8081 --user nilanjan172nsvian@gmail.com
 ```bash
 trino --server localhost:8082 --user nilanjan172nsvian@gmail.com
 ```
+
 ![Trino CLI-3](assets/image-7.png)
 
 #### Changing Policies on Runtime
@@ -118,7 +119,6 @@ Now, I have created another group `marketing` and associated it with the followi
   - Table: `promotion`
   - columns: `p_promo_name`, `p_channel_tv`, `p_channel_email`
   - cluster: `trino-2`
-
 
 ```bash
 trino --server localhost:8082 --user nilanjan172nsvian@gmail.com
