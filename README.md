@@ -15,7 +15,7 @@ This repository guides you through the process of setting up Trino with OPA for 
 
 #### Setting up Github SSH Key (Optional)
 
-If you are using a private repository, you need to add the SSH key to the GitHub repository as a deploy key. [OPAL Docs](https://docs.opal.ac/getting-started/running-opal/run-opal-server/policy-repo-location)
+If you are using a private repository for the policy files in OPAL Server, you need to add the SSH Public key to the GitHub repository as a deploy key. Read [OPAL Documentation](https://docs.opal.ac/getting-started/running-opal/run-opal-server/policy-repo-location)
 
 - Generate a new SSH key pair using the following command:
 
@@ -73,7 +73,7 @@ If you are using a private repository, you need to add the SSH key to the GitHub
 
 #### Running Docker Compose
 
-Create a `.env` file with the variables from `env.sample` and run the following command:
+Create a `.env` file with the variables from `.env.sample` and run the following command:
 
 ```bash
 docker compose up -d
