@@ -4,7 +4,7 @@ const Group = require("../models/Group");
 const User = require("../models/User");
 const TRINO_GROUP_TXT_FILE_PATH = process.env.TRINO_GROUP_TXT_FILE_PATH;
 
-exports.modifyTrinoGorups = async function () {
+async function modifyTrinoGorups() {
   const filePath = Path.resolve(TRINO_GROUP_TXT_FILE_PATH);
   const groups = await Group.findAll({
     include: [
@@ -22,5 +22,19 @@ exports.modifyTrinoGorups = async function () {
   }
   groupLines.sort();
   const groupTxt = groupLines.join("");
-  Fs.writeFileSync(filePath, groupTxt);
+  try {
+    Fs.writeFileSync(filePath, groupTxt);
+  } catch (error) {
+    console.error(`error writing to ${filePath}`, error);
+  }
+}
+
+async function initializeTrinoGroups() {
+  await modifyTrinoGorups();
+  console.log("trino groups initialized");
+}
+
+module.exports = {
+  modifyTrinoGorups,
+  initializeTrinoGroups,
 };
