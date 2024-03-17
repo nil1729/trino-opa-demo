@@ -20,14 +20,14 @@
         "topics": [
           "trino-groups-1"
         ],
-        "dst_path": "/experimental/exteranl"
+        "dst_path": "/experimental/external"
       },
       {
         "url": "http://172.16.0.153:5050/api/v1/opal/groups/2",
         "topics": [
           "trino-groups-2"
         ],
-        "dst_path": "/experimental/exteranl"
+        "dst_path": "/experimental/external"
       }
     ]
   }
