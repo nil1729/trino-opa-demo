@@ -43,6 +43,9 @@ services:
       - RBAC_STORE_HOST=rbac-db
       - RBAC_STORE_PORT=5432
       - RBAC_STORE_DB=${RBAC_DB_DATABASE}
+      - TRINO_GROUP_TXT_FILE_PATH=/opt/shared/groups.txt
+    volumes:
+      - "groups-data:/opt/shared"
 
   broadcast-channel:
     image: postgres:16
@@ -127,7 +130,9 @@ services:
     networks:
       trino:
     volumes:
-      - "${PWD}/trino/opa-1.properties:/etc/trino/access-control.properties"
+      - "${PWD}/trino/opa-1.properties:/etc/trino/access-control.properties:ro"
+      - "${PWD}/trino/group-provider.properties:/etc/trino/group-provider.properties:ro"
+      - "groups-data:/etc/trino-config:ro"
 
   trino-2:
     image: trinodb/trino:440
@@ -138,7 +143,9 @@ services:
     networks:
       trino:
     volumes:
-      - "${PWD}/trino/opa-2.properties:/etc/trino/access-control.properties"
+      - "${PWD}/trino/opa-2.properties:/etc/trino/access-control.properties:ro"
+      - "${PWD}/trino/group-provider.properties:/etc/trino/group-provider.properties:ro"
+      - "groups-data:/etc/trino-config:ro"
 
 networks:
   internal:
@@ -151,3 +158,4 @@ networks:
 volumes:
   broadcast-channel-data:
   rbac-db-data:
+  groups-data:
