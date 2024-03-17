@@ -1,0 +1,5 @@
+data-engg: 
+finance: tom@gmail.com
+hr: nilanjan172nsvian@gmail.com
+marketing: bob@gmail.com
+sales: 

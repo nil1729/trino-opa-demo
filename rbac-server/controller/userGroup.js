@@ -1,7 +1,7 @@
 const Group = require("../models/Group");
 const User = require("../models/User");
-const UserGroupMap = require("../models/UserGroupMap");
 const asyncHandler = require("../middleware/asyncHandler");
+const { modifyTrinoGorups } = require("../trino");
 
 // associate a user with a group
 exports.associateUserWithGroup = asyncHandler(async (req, res) => {
@@ -13,7 +13,8 @@ exports.associateUserWithGroup = asyncHandler(async (req, res) => {
   if (!group) {
     throw new Error("group not found");
   }
-  user.addGroup(group);
+  await user.addGroup(group);
+  modifyTrinoGorups();
   res.status(201).json({ user, group });
 });
 
@@ -38,6 +39,7 @@ exports.removeUserFromGroup = asyncHandler(async (req, res) => {
   if (!group) {
     throw new Error("group not found");
   }
-  user.removeGroup(group);
+  await user.removeGroup(group);
+  modifyTrinoGorups();
   res.status(200).json({ user, group });
 });

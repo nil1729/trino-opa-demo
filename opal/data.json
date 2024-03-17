@@ -2,18 +2,32 @@
   "config": {
     "entries": [
       {
-        "url": "http://172.16.0.153:5050/api/v1/opal/1",
+        "url": "http://172.16.0.153:5050/api/v1/opal/users/1",
         "topics": [
-          "trino-1"
+          "trino-users-1"
         ],
         "dst_path": "/external"
       },
       {
-        "url": "http://172.16.0.153:5050/api/v1/opal/2",
+        "url": "http://172.16.0.153:5050/api/v1/opal/users/2",
         "topics": [
-          "trino-2"
+          "trino-users-2"
         ],
         "dst_path": "/external"
+      },
+      {
+        "url": "http://172.16.0.153:5050/api/v1/opal/groups/1",
+        "topics": [
+          "trino-groups-1"
+        ],
+        "dst_path": "/experimental/exteranl"
+      },
+      {
+        "url": "http://172.16.0.153:5050/api/v1/opal/groups/2",
+        "topics": [
+          "trino-groups-2"
+        ],
+        "dst_path": "/experimental/exteranl"
       }
     ]
   }
