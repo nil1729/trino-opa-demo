@@ -14,6 +14,7 @@ const Group = RbacStore.client.define(
     name: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
     },
   },
   {

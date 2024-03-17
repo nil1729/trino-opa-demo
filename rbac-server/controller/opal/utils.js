@@ -1,58 +1,18 @@
-const User = require("../models/User");
-const asyncHandler = require("../middleware/asyncHandler");
-
-exports.getUserPolicies = asyncHandler(async (req, res) => {
-  const clusterId = req.params.clusterId;
-  const users = await User.findAll();
-
-  const opaUsers = [];
-  const catalogAccess = [];
-  const schemaAccess = [];
-  const tableAccess = [];
-  const columnAccess = [];
-
-  for (const user of users) {
-    const groups = await user.getGroups();
-    const policies = [];
-    for (const group of groups) {
-      const groupPolicies = await group.getPolicies({ where: { clusterId } });
-      policies.push(...groupPolicies);
-    }
-    if (policies.length === 0) {
-      continue;
-    } else {
-      opaUsers.push(user.email);
-      catalogAccess.push(createCatalogAccess(policies, user));
-      schemaAccess.push(createSchemaAccess(policies, user));
-      tableAccess.push(createTableAccess(policies, user));
-      columnAccess.push(createColumnAccess(policies, user));
-    }
-  }
-
-  res.status(200).json({
-    users: opaUsers,
-    catalog: catalogAccess,
-    schema: schemaAccess,
-    table: tableAccess,
-    column: columnAccess,
-  });
-});
-
 // create catalog access policy
-function createCatalogAccess(policies, user) {
+exports.createCatalogAccess = function (policies, entityKey, entityValue) {
   const catalogSet = getDistinctCatalogs(policies);
   return {
-    user: user.email,
+    [entityKey]: entityValue,
     access: [
       {
         catalog: catalogSet,
       },
     ],
   };
-}
+};
 
 // create schema access policy
-function createSchemaAccess(policies, user) {
+exports.createSchemaAccess = function (policies, entityKey, entityValue) {
   const catalogSet = getDistinctCatalogs(policies);
   const schemaAccess = [];
 
@@ -70,13 +30,13 @@ function createSchemaAccess(policies, user) {
   }
 
   return {
-    user: user.email,
+    [entityKey]: entityValue,
     access: schemaAccess,
   };
-}
+};
 
 // create table access policy
-function createTableAccess(policies, user) {
+exports.createTableAccess = function (policies, entityKey, entityValue) {
   const catalogSet = getDistinctCatalogs(policies);
   const schemaSet = getDistinctSchemas(policies);
   const tableAccess = [];
@@ -98,13 +58,13 @@ function createTableAccess(policies, user) {
   }
 
   return {
-    user: user.email,
+    [entityKey]: entityValue,
     access: tableAccess,
   };
-}
+};
 
 // create column access policy
-function createColumnAccess(policies, user) {
+exports.createColumnAccess = function (policies, entityKey, entityValue) {
   const catalogSet = getDistinctCatalogs(policies);
   const schemaSet = getDistinctSchemas(policies);
   const tableSet = getDistinctTables(policies);
@@ -132,10 +92,10 @@ function createColumnAccess(policies, user) {
   }
 
   return {
-    user: user.email,
+    [entityKey]: entityValue,
     access: columnAccess,
   };
-}
+};
 
 function getDistinctCatalogs(policies) {
   const catalog = new Set();
