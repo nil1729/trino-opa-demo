@@ -10,6 +10,7 @@ This repository guides you through the process of setting up Trino with OPA for 
 ### Architecture (Docker)
 
 ![Docker Architecture](assets/image.png)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fnil1729%2Ftrino-opa-demo.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fnil1729%2Ftrino-opa-demo?ref=badge_shield)
 
 ### Running Trino Cluster with OPA Locally
 
@@ -141,3 +142,7 @@ trino --server localhost:8082 --user nilanjan172nsvian@gmail.com
 ---
 
 Made with ❤️ by [nil1729](https://www.github.com/nil1729)
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fnil1729%2Ftrino-opa-demo.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fnil1729%2Ftrino-opa-demo?ref=badge_large)
