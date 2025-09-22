@@ -6,28 +6,32 @@
         "topics": [
           "trino-users-1"
         ],
-        "dst_path": "/external"
+        "dst_path": "/external",
+        "periodic_update_interval": 5
       },
       {
         "url": "http://172.16.0.153:5050/api/v1/opal/users/2",
         "topics": [
           "trino-users-2"
         ],
-        "dst_path": "/external"
+        "dst_path": "/external",
+        "periodic_update_interval": 5
       },
       {
         "url": "http://172.16.0.153:5050/api/v1/opal/groups/1",
         "topics": [
           "trino-groups-1"
         ],
-        "dst_path": "/experimental/external"
+        "dst_path": "/experimental/external",
+        "periodic_update_interval": 5
       },
       {
         "url": "http://172.16.0.153:5050/api/v1/opal/groups/2",
         "topics": [
           "trino-groups-2"
         ],
-        "dst_path": "/experimental/external"
+        "dst_path": "/experimental/external",
+        "periodic_update_interval": 5
       }
     ]
   }
