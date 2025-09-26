@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   rbac-db:
-    image: postgres:17
+    image: postgres:18
     hostname: rbac-db
     container_name: rbac-db
     environment:
@@ -48,7 +48,7 @@ services:
       - "groups-data:/opt/shared"
 
   broadcast-channel:
-    image: postgres:17
+    image: postgres:18
     hostname: broadcast-channel
     container_name: broadcast-channel
     environment:
