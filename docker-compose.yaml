@@ -88,7 +88,7 @@ services:
         condition: service_healthy
 
   opal-client-1:
-    image: permitio/opal-client:0.8.3
+    image: permitio/opal-client:0.9.0
     hostname: opal-client-1
     container_name: opal-client-1
     environment:
@@ -105,7 +105,7 @@ services:
         condition: service_started
 
   opal-client-2:
-    image: permitio/opal-client:0.8.3
+    image: permitio/opal-client:0.9.0
     hostname: opal-client-2
     container_name: opal-client-2
     environment:
